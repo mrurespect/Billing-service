@@ -1,5 +1,6 @@
 package fsts.mrurepect.billingservice.entities;
 
+import fsts.mrurepect.billingservice.model.Customer;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -23,4 +24,6 @@ public class Bill {
     @OneToMany(mappedBy = "bill")
     private List<ProductItem> productItems;
 
+    @Transient
+    private Customer customer;
 }

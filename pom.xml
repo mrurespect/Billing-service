@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>fsts.mrurepect</groupId>
-	<artifactId>billingService</artifactId>
+	<artifactId>billing-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>billingService</name>
 	<description>billingService</description>
