@@ -33,34 +33,33 @@ public class BillingServiceApplication {
 							CustomerRestClient customerRestClient,
 							ProductRestClient productRestClient) {
 		return args -> {
-			Collection<Product> products = productRestClient.pageProducts().getContent();
-			Bill bill = new Bill();
-			bill.setBillingDate(new Date());
+			//Collection<Product> products = productRestClient.getProducts().getContent();
+			//Collection<Customer> customers = customerRestClient.getCustomers().getContent();
+			List<Product> products = productRestClient.getProducts().getContent().stream().toList();
+			List<Customer> customers = customerRestClient.getCustomers().getContent().stream().toList();
 
-			Long id =1L;
-			// on s assure que le client existe avec cet id
-			Customer customer =customerRestClient.getCustomerById(id);
-			if (customer == null) throw new RuntimeException("Customer not found");
-			System.out.println(customer);
-			bill.setCustomerId(customer.getId());
-			bill.setCustomer(customer);
-			Bill savedBill = billRepository.save(bill);
+			Random random =new Random();
 
-			products.forEach(prod -> {
-				ProductItem productItem = new ProductItem();
-				productItem.setPrice(prod.getPrice());
-				productItem.setQuantity(1+new Random().nextInt(10));
-				productItem.setBill(savedBill);
-				productItem.setDiscount(Math.random());
-				productItem.setProductId(prod.getId());
-				productItem.setProduct(prod);
+			for (int i = 0; i < 20; i++) {
+				Bill bill =Bill.builder()
+								.customerId(customers.get(random.nextInt(customers.size())).getId())
+								.billingDate(new Date())
+								.build();
+				Bill savedBill = billRepository.save(bill);
 
-				System.out.println(productItemRepository.save(productItem));
-			});
-
-
-
-
+				if(Math.random() > 0.5){
+					products.forEach(prod -> {
+						ProductItem productItem = new ProductItem();
+						productItem.setPrice(prod.getPrice());
+						productItem.setQuantity(1+new Random().nextInt(10));
+						productItem.setBill(savedBill);
+						productItem.setDiscount(Math.random());
+						productItem.setProductId(prod.getId());
+						productItem.setProduct(prod);
+						productItemRepository.save(productItem);
+					});
+				}
+			}
 		};
 	}
 }

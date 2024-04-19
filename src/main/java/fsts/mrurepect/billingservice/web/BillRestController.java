@@ -25,13 +25,12 @@ public class BillRestController {
 
     @GetMapping(path = "/fullBill/{id}")
     public Bill fullBill(@PathVariable Long id) {
-        Bill bill = billRepository.findById(id).orElse(null);
+        Bill bill = billRepository.findById(id).orElseThrow(() -> new RuntimeException("Bill not found"));
         assert bill != null;
         bill.setCustomer(customerRestClient.getCustomerById(bill.getCustomerId()));
         bill.getProductItems().forEach(pi -> {
             pi.setProduct(productRestClient.getProductById(pi.getProductId()));
         });
-
         return bill;
     }
 }
