@@ -39,6 +39,9 @@ public class BillingServiceApplication {
 
 			Random random =new Random();
 
+			if (products.isEmpty() || customers.isEmpty()) {
+				return;
+			}
 			for (int i = 0; i < 20; i++) {
 				Bill bill =Bill.builder()
 								.customerId(customers.get(random.nextInt(customers.size())).getId())
