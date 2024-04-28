@@ -1,4 +1,4 @@
-package fsts.mrurepect.billingservice.service;
+package fsts.mrurepect.billingservice.clients;
 
 import fsts.mrurepect.billingservice.model.Customer;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -12,5 +12,4 @@ public interface CustomerRestClient {
     Customer getCustomerById(@PathVariable Long id);
     @GetMapping(path = "/customers")
     PagedModel<Customer> getCustomers();
-
 }

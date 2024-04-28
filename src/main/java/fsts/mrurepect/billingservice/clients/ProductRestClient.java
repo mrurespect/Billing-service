@@ -1,4 +1,4 @@
-package fsts.mrurepect.billingservice.service;
+package fsts.mrurepect.billingservice.clients;
 
 import fsts.mrurepect.billingservice.model.Product;
 import org.springframework.cloud.openfeign.FeignClient;

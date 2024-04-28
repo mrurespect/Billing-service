@@ -6,15 +6,14 @@ import fsts.mrurepect.billingservice.model.Customer;
 import fsts.mrurepect.billingservice.model.Product;
 import fsts.mrurepect.billingservice.repository.BillRepository;
 import fsts.mrurepect.billingservice.repository.ProductItemRepository;
-import fsts.mrurepect.billingservice.service.CustomerRestClient;
-import fsts.mrurepect.billingservice.service.ProductRestClient;
+import fsts.mrurepect.billingservice.clients.CustomerRestClient;
+import fsts.mrurepect.billingservice.clients.ProductRestClient;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
 
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Random;
