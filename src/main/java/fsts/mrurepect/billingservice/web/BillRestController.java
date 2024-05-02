@@ -1,5 +1,6 @@
 package fsts.mrurepect.billingservice.web;
 
+import fsts.mrurepect.billingservice.dto.BillResponceDto;
 import fsts.mrurepect.billingservice.entities.Bill;
 import fsts.mrurepect.billingservice.repository.BillRepository;
 import fsts.mrurepect.billingservice.repository.ProductItemRepository;
@@ -8,6 +9,9 @@ import fsts.mrurepect.billingservice.clients.ProductRestClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 public class BillRestController {
@@ -32,5 +36,18 @@ public class BillRestController {
             pi.setProduct(productRestClient.getProductById(pi.getProductId()));
         });
         return bill;
+    }
+    @GetMapping(path = "/fullBill")
+    public List<BillResponceDto> fullBill() {
+        List<BillResponceDto> billsList =new ArrayList<>();
+        List<Bill> bills =billRepository.findAll();
+        for (Bill bill : bills) {
+            BillResponceDto responce = new BillResponceDto();
+            responce.setId(bill.getId());
+            responce.setBillDate(bill.getBillingDate());
+            responce.setCustomerName(customerRestClient.getCustomerById(bill.getCustomerId()).getName());
+            billsList.add(responce);
+        }
+        return billsList;
     }
 }
